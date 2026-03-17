@@ -10,14 +10,19 @@ const userRoutes = require('./routes/userRoutes');
 const leaveRoutes = require('./routes/leaveRoutes');
 const departmentRoutes = require('./routes/departmentRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const reimbursementRoutes = require('./routes/reimbursementRoutes');
 
 connectDB();
 
 const app = express();
 
 // CORS
+const allowedOrigins = process.env.FRONTEND_URL
+    ? [process.env.FRONTEND_URL, 'http://localhost:5173', 'http://localhost:3000']
+    : ['http://localhost:5173', 'http://localhost:3000'];
+
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    origin: allowedOrigins,
     credentials: true,
 }));
 
@@ -41,6 +46,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/leaves', leaveRoutes);
 app.use('/api/departments', departmentRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/reimbursements', reimbursementRoutes);
 
 // Error handling
 app.use(notFound);

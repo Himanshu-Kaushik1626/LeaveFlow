@@ -1,12 +1,20 @@
-import { Menu, Sun, Moon, Bell } from 'lucide-react'
+import { Menu, Sun, Moon } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { useTheme } from '../../context/ThemeContext'
 import { useAuth } from '../../context/AuthContext'
+import NotificationsPanel from '../ui/NotificationsPanel'
 
 const roleLabel = { admin: 'Admin Panel', manager: 'Manager Dashboard', employee: 'Employee Portal' }
+const roleGradients = {
+    admin: 'from-purple-500 to-indigo-600',
+    manager: 'from-blue-500 to-cyan-600',
+    employee: 'from-primary-500 to-indigo-600',
+}
 
 export default function Navbar({ onMenuClick }) {
     const { isDark, toggle } = useTheme()
     const { user } = useAuth()
+    const navigate = useNavigate()
 
     return (
         <header className="h-16 flex-shrink-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 flex items-center px-4 gap-4 sticky top-0 z-10">
@@ -31,16 +39,17 @@ export default function Navbar({ onMenuClick }) {
                     {isDark ? <Sun size={18} /> : <Moon size={18} />}
                 </button>
 
-                {/* Notification bell (decorative) */}
-                <button className="btn-icon btn-secondary relative">
-                    <Bell size={18} />
-                    <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary-500 rounded-full" />
-                </button>
+                {/* Notifications */}
+                <NotificationsPanel />
 
-                {/* Avatar */}
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm cursor-pointer">
+                {/* Avatar — clicks to /profile */}
+                <button
+                    onClick={() => navigate('/profile')}
+                    title="My Profile"
+                    className={`w-9 h-9 rounded-full bg-gradient-to-br ${roleGradients[user?.role] || 'from-primary-500 to-indigo-600'} flex items-center justify-center text-white font-bold text-sm hover:scale-110 hover:shadow-md transition-all duration-200 ring-2 ring-transparent hover:ring-primary-400`}
+                >
                     {user?.name?.charAt(0).toUpperCase()}
-                </div>
+                </button>
             </div>
         </header>
     )

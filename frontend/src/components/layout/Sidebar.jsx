@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import {
     LayoutDashboard, CalendarCheck, UserCircle, LogOut,
-    Users, ClipboardList, Building2, FileText, ShieldCheck
+    Users, ClipboardList, Building2, FileText, ShieldCheck, ReceiptText
 } from 'lucide-react'
 
 const employeeLinks = [
@@ -20,6 +20,8 @@ const adminLinks = [
     { to: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
     { to: '/admin/users', icon: Users, label: 'User Management' },
     { to: '/admin/departments', icon: Building2, label: 'Departments' },
+    { to: '/admin/leaves', icon: CalendarCheck, label: 'Leave Management' },
+    { to: '/admin/reimbursements', icon: ReceiptText, label: 'Reimbursements' },
     { to: '/admin/logs', icon: FileText, label: 'Audit Logs' },
 ]
 

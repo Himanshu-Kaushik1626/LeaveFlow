@@ -12,6 +12,8 @@ import AdminDashboard from './pages/admin/Dashboard'
 import UserManagement from './pages/admin/UserManagement'
 import AuditLogs from './pages/admin/AuditLogs'
 import Departments from './pages/admin/Departments'
+import AdminReimbursements from './pages/admin/Reimbursements'
+import AdminLeaveManagement from './pages/admin/LeaveManagement'
 import NotFound from './pages/NotFound'
 import ProtectedRoute from './routes/ProtectedRoute'
 import RoleRoute from './routes/RoleRoute'
@@ -44,12 +46,14 @@ export default function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
-                {/* Employee */}
+                {/* Shared – all authenticated roles */}
                 <Route element={<ProtectedRoute />}>
+                    <Route path="/profile" element={<Profile />} />
+
+                    {/* Employee */}
                     <Route element={<RoleRoute roles={['employee']} />}>
                         <Route path="/dashboard" element={<EmployeeDashboard />} />
                         <Route path="/apply-leave" element={<ApplyLeave />} />
-                        <Route path="/profile" element={<Profile />} />
                     </Route>
 
                     {/* Manager */}
@@ -63,6 +67,8 @@ export default function App() {
                         <Route path="/admin/users" element={<UserManagement />} />
                         <Route path="/admin/logs" element={<AuditLogs />} />
                         <Route path="/admin/departments" element={<Departments />} />
+                        <Route path="/admin/reimbursements" element={<AdminReimbursements />} />
+                        <Route path="/admin/leaves" element={<AdminLeaveManagement />} />
                     </Route>
                 </Route>
 
